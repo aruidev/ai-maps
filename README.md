@@ -7,26 +7,25 @@ Users ask for a place in a chat input, the app gets geographic coordinates from 
 
 <img width="800" height="915" alt="image" src="https://github.com/user-attachments/assets/19a425df-4403-4b48-8042-54547224f86a" />
 
-
 ## Run locally
 
 1. Create environment variables:
+
 - MAPBOX_ACCESS_TOKEN
 - GITHUB_TOKEN (with 'models' permission)
 - PORT (optional, default 3000)
 
-2. Build and start:  
+2. Build and start:
 
 ```bash
 npm run build
-```  
+```
 
 ```bash
 npm run start
-```  
+```
 
 3. Open http://localhost:3000
-
 
 ## How it works
 
