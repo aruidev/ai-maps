@@ -1,11 +1,15 @@
 # AI Maps
 
+> 🌐 Live: https://ai-maps-pksi.onrender.com/  
+
+> 🔗 Repo: https://github.com/aruidev/ai-maps
+
 AI Maps is a small full-stack web app built with Node.js and TypeScript.  
 Users ask for a place in a chat input, the app gets geographic coordinates from an AI model, and then displays the location on a Mapbox map. Users can also place and manage markers on the map.
 
-<img width="800" height="913" alt="image" src="https://github.com/user-attachments/assets/01901ef5-ac1f-4d8f-9b61-fa8b55b633ae" />
+<img width="800" height="auto" alt="image" src="https://github.com/user-attachments/assets/01901ef5-ac1f-4d8f-9b61-fa8b55b633ae" />
 
-<img width="800" height="915" alt="image" src="https://github.com/user-attachments/assets/19a425df-4403-4b48-8042-54547224f86a" />
+<img width="800" height="auto" alt="image" src="https://github.com/user-attachments/assets/19a425df-4403-4b48-8042-54547224f86a" />
 
 ## Run locally
 
