@@ -14,6 +14,5 @@ registerRoutes(app, mapboxAccessToken);
 app.use(errorHandler);
 
 app.listen(port, () => {
-	console.log(`AI Maps server running at http://localhost:${port}`);
+  console.log(`AI Maps server running at http://localhost:${port}`);
 });
-

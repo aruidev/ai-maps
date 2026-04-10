@@ -1,59 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Maps</title>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      defer
+      src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"
+    ></script>
     <script type="module" defer src="../dist/client/main.js"></script>
-</head>
+  </head>
 
-<body class="light-theme" data-theme="light">
+  <body class="light-theme" data-theme="light">
     <main class="app-shell">
-        <section class="chat-panel">
-            <header class="panel-header">
-                <h1>AI Maps</h1>
-                <p>Search places and add markers.</p>
-                <button id="theme-toggle" type="button">Dark theme</button>
-            </header>
+      <section class="chat-panel">
+        <header class="panel-header">
+          <h1>AI Maps</h1>
+          <p>Search places and add markers.</p>
+          <button id="theme-toggle" type="button">Dark theme</button>
+        </header>
 
-            <form id="query-form" class="query-form">
-                <details>
-                    <summary>Advanced options</summary>
-                    <section class="inner-section">
-                        <label class="inner-summary" for="system-info">System instructions (optional)</label>
-                        <p class="secondary-text">Provide additional context for all AI responses.</p>
-                        <textarea id="system-info" placeholder="e.g., Restrict results to Spain"></textarea>
-                    </section>
-                </details>
-
-                <label for="message">Geographic query</label>
-                <input id="message" type="text" placeholder="e.g., Sagrada Familia, Barcelona" required>
-
-                <div class="button-row">
-                    <button type="submit">Send query</button>
-                    <button id="place-marker" type="button">Place marker</button>
-                </div>
-            </form>
-
-            <section id="status" class="status" aria-live="polite"></section>
+        <form id="query-form" class="query-form">
+          <details>
+            <summary>Advanced options</summary>
             <section class="inner-section">
-                <h2>Markers</h2>
-                <ul id="marker-list" class="marker-list"></ul>
+              <label class="inner-summary" for="system-info"
+                >System instructions (optional)</label
+              >
+              <p class="secondary-text">
+                Provide additional context for all AI responses.
+              </p>
+              <textarea
+                id="system-info"
+                placeholder="e.g., Restrict results to Spain"
+              ></textarea>
             </section>
-            <section class="inner-section">
-                <h2>Chat</h2>
-                <ul id="chat-log" class="chat-log"></ul>
-            </section>
-        </section>
+          </details>
 
-        <section class="map-panel">
-            <div id="map" class="map-canvas" aria-label="Locations map"></div>
+          <label for="message">Geographic query</label>
+          <input
+            id="message"
+            type="text"
+            placeholder="e.g., Sagrada Familia, Barcelona"
+            required
+          />
+
+          <div class="button-row">
+            <button type="submit">Send query</button>
+            <button id="place-marker" type="button">Place marker</button>
+          </div>
+        </form>
+
+        <section id="status" class="status" aria-live="polite"></section>
+        <section class="inner-section">
+          <h2>Markers</h2>
+          <ul id="marker-list" class="marker-list"></ul>
         </section>
+        <section class="inner-section">
+          <h2>Chat</h2>
+          <ul id="chat-log" class="chat-log"></ul>
+        </section>
+      </section>
+
+      <section class="map-panel">
+        <div id="map" class="map-canvas" aria-label="Locations map"></div>
+      </section>
     </main>
-</body>
-
+  </body>
 </html>

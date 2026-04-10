@@ -48,7 +48,9 @@ function extractJson(rawText: string): unknown {
 }
 
 function isValidCoordinate(latitude: number, longitude: number): boolean {
-  return latitude >= -90 && latitude <= 90 && longitude >= -180 && longitude <= 180;
+  return (
+    latitude >= -90 && latitude <= 90 && longitude >= -180 && longitude <= 180
+  );
 }
 
 function normalizeResult(parsed: unknown): GeoResult {
@@ -94,7 +96,10 @@ function normalizeResult(parsed: unknown): GeoResult {
   return { ok: false, message: "Invalid or out-of-range coordinates received" };
 }
 
-export async function generateResponse(prompt: string, systemInfo?: string): Promise<GeoResult> {
+export async function generateResponse(
+  prompt: string,
+  systemInfo?: string,
+): Promise<GeoResult> {
   const userMessage = systemInfo?.trim()
     ? `System information for all responses: ${systemInfo}\n\nUser request: ${prompt}`
     : prompt;

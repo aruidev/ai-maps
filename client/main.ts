@@ -8,8 +8,8 @@ initializeTheme();
 setupEventListeners();
 
 void initializeMap(() => {
-	restoreMarkers();
-	setStatus("Map ready. Enter a geographic query.");
+  restoreMarkers();
+  setStatus("Map ready. Enter a geographic query.");
 }).catch(() => {
-	setStatus("Error initializing the map.", true);
+  setStatus("Error initializing the map.", true);
 });
