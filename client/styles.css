@@ -190,9 +190,15 @@ summary {
     cursor: pointer;
     font-size: var(--font-size-sm);
     color: var(--primary-color);
+    user-select: none;
+}
+
+summary:hover {
+    text-decoration: underline;
 }
 
 .inner-summary {
+    display: block;
     margin-top: var(--spacing-sm);
 }
 
