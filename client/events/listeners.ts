@@ -43,7 +43,11 @@ export function setupEventListeners(): void {
 			setStatus("You need a valid query with coordinates first.", true);
 			return;
 		}
-		addMarker({ label: lastResult.label, latitude: lastResult.latitude, longitude: lastResult.longitude });
+		const added = addMarker({ label: lastResult.label, latitude: lastResult.latitude, longitude: lastResult.longitude });
+		if (!added) {
+			setStatus("Duplicate marker: same place and coordinates already exists.", true);
+			return;
+		}
 		flyToLocation(lastResult.longitude, lastResult.latitude, 11);
 		setStatus(`Marker placed at ${lastResult.latitude.toFixed(6)}, ${lastResult.longitude.toFixed(6)}. Max ${MAX_MARKERS}.`);
 	});

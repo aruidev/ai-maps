@@ -6,10 +6,32 @@ import type { MarkerData, MarkerRecord } from "../types.js";
 import { getMap } from "./map.js";
 import { setStatus } from "./status.js";
 
-let markers: MarkerRecord[] = [];
+let markers: Set<MarkerRecord> = new Set();
+
+function markerArray(): MarkerRecord[] {
+	return Array.from(markers);
+}
+
+function normalizeLabel(label: string): string {
+	return label.trim().toLowerCase();
+}
+
+function markerKey(label: string, latitude: number, longitude: number): string {
+	return `${normalizeLabel(label)}|${latitude.toFixed(6)}|${longitude.toFixed(6)}`;
+}
+
+function hasMarker(label: string, latitude: number, longitude: number): boolean {
+	const key = markerKey(label, latitude, longitude);
+	for (const marker of markers) {
+		if (markerKey(marker.label, marker.latitude, marker.longitude) === key) {
+			return true;
+		}
+	}
+	return false;
+}
 
 function saveMarkers(): void {
-	const serialized = markers.map(({ id, label, latitude, longitude }) => ({
+	const serialized = markerArray().map(({ id, label, latitude, longitude }) => ({
 		id,
 		label,
 		latitude,
@@ -29,26 +51,28 @@ function createMarkerInstance(data: MarkerData): any {
 }
 
 function removeMarkerById(id: string): void {
-	const index = markers.findIndex((marker) => marker.id === id);
-	if (index === -1) {
-		return;
+	for (const marker of markers) {
+		if (marker.id === id) {
+			marker.instance.remove();
+			markers.delete(marker);
+			saveMarkers();
+			renderMarkerList();
+			return;
+		}
 	}
-	markers[index].instance.remove();
-	markers.splice(index, 1);
-	saveMarkers();
-	renderMarkerList();
 }
 
 function renderMarkerList(): void {
 	markerList.innerHTML = "";
-	if (markers.length === 0) {
+	const list = markerArray();
+	if (list.length === 0) {
 		const emptyItem = document.createElement("li");
 		emptyItem.className = "marker-list-empty";
 		emptyItem.textContent = "No markers yet.";
 		markerList.append(emptyItem);
 		return;
 	}
-	[...markers].reverse().forEach((marker) => {
+	[...list].reverse().forEach((marker) => {
 		const item = document.createElement("li");
 		item.className = "marker-item";
 		const text = document.createElement("span");
@@ -66,16 +90,27 @@ function renderMarkerList(): void {
 	});
 }
 
-export function addMarker(data: Omit<MarkerData, "id">): void {
+export function addMarker(data: Omit<MarkerData, "id">): boolean {
+	if (!isValidCoordinate(data.latitude, data.longitude)) {
+		return false;
+	}
+	if (hasMarker(data.label, data.latitude, data.longitude)) {
+		return false;
+	}
 	const markerData: MarkerData = { id: crypto.randomUUID(), ...data };
 	const instance = createMarkerInstance(markerData);
-	markers.push({ ...markerData, instance });
-	while (markers.length > MAX_MARKERS) {
-		const oldest = markers.shift();
+	markers.add({ ...markerData, instance });
+	while (markers.size > MAX_MARKERS) {
+		const oldest = markers.values().next().value as MarkerRecord | undefined;
+		if (!oldest) {
+			break;
+		}
 		oldest?.instance.remove();
+		markers.delete(oldest);
 	}
 	saveMarkers();
 	renderMarkerList();
+	return true;
 }
 
 export function restoreMarkers(): void {
@@ -87,14 +122,25 @@ export function restoreMarkers(): void {
 	try {
 		const parsed = JSON.parse(raw) as MarkerData[];
 		parsed.forEach((marker) => {
-			if (typeof marker.id === "string" && typeof marker.label === "string" && typeof marker.latitude === "number" && typeof marker.longitude === "number" && isValidCoordinate(marker.latitude, marker.longitude)) {
+			if (
+				typeof marker.id === "string" &&
+				typeof marker.label === "string" &&
+				typeof marker.latitude === "number" &&
+				typeof marker.longitude === "number" &&
+				isValidCoordinate(marker.latitude, marker.longitude) &&
+				!hasMarker(marker.label, marker.latitude, marker.longitude)
+			) {
 				const instance = createMarkerInstance(marker);
-				markers.push({ ...marker, instance });
+				markers.add({ ...marker, instance });
 			}
 		});
-		while (markers.length > MAX_MARKERS) {
-			const oldest = markers.shift();
+		while (markers.size > MAX_MARKERS) {
+			const oldest = markers.values().next().value as MarkerRecord | undefined;
+			if (!oldest) {
+				break;
+			}
 			oldest?.instance.remove();
+			markers.delete(oldest);
 		}
 		saveMarkers();
 		renderMarkerList();
