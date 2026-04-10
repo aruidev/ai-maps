@@ -1,0 +1,312 @@
+:root {
+    /* Fonts */
+    --font-family: "Arial", sans-serif;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-sm: 0.875rem;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+
+    /* Border */
+    --border-radius-base: 0.25rem;
+    --border-radius-lg: 0.5rem;
+    --border-width-base: 1px;
+    --border-width-lg: 2px;
+}
+
+/* Themes */
+body.light-theme[data-theme="light"] {
+    --primary-color: #4c1d95;
+    --primary-color-alt: #3b1572;
+    --secondary-color: #0b7285;
+    --background-color: #f8fafc;
+    --background-color-alt: #e9eff5;
+    --text-color: #111827;
+    --text-color-alt: #334155;
+    --border-color: #cbd5e1;
+    --status-ok-bg: #dcfce7;
+    --status-ok-text: #14532d;
+    --status-error-bg: #fee2e2;
+    --status-error-text: #7f1d1d;
+    --button-text-color: #ffffff;
+}
+
+body.dark-theme[data-theme="dark"] {
+    --primary-color: #8b5cf6;
+    --primary-color-alt: #7c3aed;
+    --secondary-color: #67e8f9;
+    --background-color: #111827;
+    --background-color-alt: #1f2937;
+    --text-color: #f9fafb;
+    --text-color-alt: #cbd5e1;
+    --border-color: #475569;
+    --status-ok-bg: #052e16;
+    --status-ok-text: #bbf7d0;
+    --status-error-bg: #450a0a;
+    --status-error-text: #fecaca;
+    --button-text-color: #f8fafc;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Global */
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    color: var(--text-color);
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--primary-color);
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:visited {
+    color: var(--primary-color);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button,
+.button {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    color: var(--button-text-color, #fff);
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: var(--border-radius-base);
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: pointer;
+    transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover,
+.button:hover {
+    background-color: var(--primary-color-alt);
+}
+
+.app-shell {
+    display: grid;
+    grid-template-columns: minmax(320px, 420px) 1fr;
+    min-height: 100vh;
+}
+
+.chat-panel {
+    padding: var(--spacing-lg);
+    border-right: var(--border-width-base) solid var(--border-color);
+    background-color: var(--background-color-alt);
+}
+
+.panel-header h1 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-sm);
+    font-size: calc(var(--font-size-lg) + 0.35rem);
+}
+
+.panel-header p {
+    color: var(--text-color-alt);
+}
+
+#theme-toggle {
+    margin-bottom: var(--spacing-md);
+}
+
+.query-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.query-form label {
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+}
+
+.query-form textarea,
+.query-form input {
+    width: 100%;
+    border: var(--border-width-base) solid var(--border-color);
+    border-radius: var(--border-radius-base);
+    padding: var(--spacing-sm) var(--spacing-md);
+    font: inherit;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.query-form textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.button-row {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xs);
+}
+
+.status {
+    margin: var(--spacing-md) 0;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: var(--border-width-base) solid var(--border-color);
+    border-radius: var(--border-radius-base);
+    background-color: var(--status-ok-bg);
+    color: var(--status-ok-text);
+    min-height: 2.4rem;
+}
+
+.status.error {
+    background-color: var(--status-error-bg);
+    color: var(--status-error-text);
+}
+
+summary {
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    color: var(--primary-color);
+}
+
+.inner-summary {
+    margin-top: var(--spacing-sm);
+}
+
+.secondary-text {
+    color: var(--text-color-alt);
+    font-size: var(--font-size-sm);
+}
+
+.inner-section h2 {
+    margin: 0 0 var(--spacing-xs);
+    color: var(--text-color);
+    font-size: var(--font-size-base);
+}
+
+.marker-list {
+    list-style: none;
+    margin: 0 0 var(--spacing-md);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    max-height: 18vh;
+    overflow-y: auto;
+}
+
+.marker-item,
+.marker-list-empty {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: var(--border-width-base) solid var(--border-color);
+    border-radius: var(--border-radius-base);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-size: var(--font-size-sm);
+}
+
+.marker-list-empty {
+    justify-content: center;
+    color: var(--text-color-alt);
+}
+
+.marker-item span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.marker-delete {
+    padding: 0.25rem 0.55rem;
+    font-size: var(--font-size-sm);
+}
+
+.chat-log {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    max-height: 42vh;
+    overflow-y: auto;
+}
+
+.chat-entry {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-base);
+    border: var(--border-width-base) solid var(--border-color);
+    background-color: var(--background-color);
+}
+
+.chat-entry.user {
+    border-left: var(--border-width-lg) solid var(--primary-color);
+}
+
+.chat-entry.assistant {
+    border-left: var(--border-width-lg) solid var(--secondary-color);
+}
+
+.map-panel {
+    min-height: 100vh;
+}
+
+.map-canvas {
+    width: 100%;
+    height: 100vh;
+}
+
+.precise-marker {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #f45d01;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 900px) {
+    .app-shell {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 56vh;
+    }
+
+    .chat-panel {
+        border-right: 0;
+        border-bottom: var(--border-width-base) solid var(--border-color);
+    }
+
+    .map-canvas {
+        height: 56vh;
+    }
+}
+
+
+
