@@ -1,12 +1,9 @@
-
 # Node modules
 node_modules/
 
 # Environment variables
-.env
-environments/
-!environments/.env.example
-
+.env*
+!.env.example
 
 # Logs
 logs
@@ -38,3 +35,6 @@ coverage/
 *.swp
 *.swo
 
+# Github
+.github/
+AGENTS*
